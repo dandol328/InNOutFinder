@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-N-Out Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #e31837;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .stat-box {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #e31837;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .controls {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        select, input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        select {
+            min-width: 150px;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+        }
+        
+        .locations-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .location-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .location-city {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .location-state {
+            color: #e31837;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .location-coords {
+            font-size: 0.9em;
+            color: #666;
+            font-family: monospace;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #e31837;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍔 In-N-Out Finder</h1>
+            <div class="subtitle">Find every In-N-Out Burger location</div>
+        </header>
+        
+        <div class="stats" id="stats">
+            <div class="stat-box">
+                <div class="stat-number" id="total-count">-</div>
+                <div class="stat-label">Total Locations</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="state-count">-</div>
+                <div class="stat-label">States</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="filtered-count">-</div>
+                <div class="stat-label">Showing</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="filter-group">
+                <label for="state-filter">Filter by State:</label>
+                <select id="state-filter">
+                    <option value="">All States</option>
+                </select>
+                <input type="text" id="city-filter" placeholder="Search by city...">
+            </div>
+        </div>
+        
+        <div class="locations-grid" id="locations-grid">
+            <div class="loading">Loading locations...</div>
+        </div>
+        
+        <footer>
+            <p>In-N-Out Finder | Location data collected via web scraping</p>
+        </footer>
+    </div>
+    
+    <script>
+        let allLocations = [];
+        
+        // Load locations on page load
+        async function loadLocations() {
+            try {
+                const response = await fetch('/api/locations');
+                const data = await response.json();
+                
+                if (data.success) {
+                    allLocations = data.locations;
+                    updateStats();
+                    populateStateFilter();
+                    displayLocations(allLocations);
+                } else {
+                    showError('Failed to load locations: ' + data.error);
+                }
+            } catch (error) {
+                showError('Error loading locations: ' + error.message);
+            }
+        }
+        
+        function updateStats() {
+            const states = new Set(allLocations.map(loc => loc.state));
+            document.getElementById('total-count').textContent = allLocations.length;
+            document.getElementById('state-count').textContent = states.size;
+            document.getElementById('filtered-count').textContent = allLocations.length;
+        }
+        
+        function populateStateFilter() {
+            const states = [...new Set(allLocations.map(loc => loc.state))].sort();
+            const select = document.getElementById('state-filter');
+            
+            states.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                select.appendChild(option);
+            });
+        }
+        
+        function displayLocations(locations) {
+            const grid = document.getElementById('locations-grid');
+            
+            if (locations.length === 0) {
+                grid.innerHTML = '<div class="loading">No locations found</div>';
+                return;
+            }
+            
+            grid.innerHTML = locations.map(loc => `
+                <div class="location-card">
+                    <div class="location-city">${loc.city}</div>
+                    <div class="location-state">${loc.state}</div>
+                    <div class="location-coords">
+                        Lat: ${loc.latitude.toFixed(4)}<br>
+                        Long: ${loc.longitude.toFixed(4)}
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('filtered-count').textContent = locations.length;
+        }
+        
+        function filterLocations() {
+            const stateFilter = document.getElementById('state-filter').value;
+            const cityFilter = document.getElementById('city-filter').value.toLowerCase();
+            
+            let filtered = allLocations;
+            
+            if (stateFilter) {
+                filtered = filtered.filter(loc => loc.state === stateFilter);
+            }
+            
+            if (cityFilter) {
+                filtered = filtered.filter(loc => 
+                    loc.city.toLowerCase().includes(cityFilter)
+                );
+            }
+            
+            displayLocations(filtered);
+        }
+        
+        function showError(message) {
+            const grid = document.getElementById('locations-grid');
+            grid.innerHTML = `<div class="error">${message}</div>`;
+        }
+        
+        // Event listeners
+        document.getElementById('state-filter').addEventListener('change', filterLocations);
+        document.getElementById('city-filter').addEventListener('input', filterLocations);
+        
+        // Load data on page load
+        loadLocations();
+    </script>
+</body>
+</html>
