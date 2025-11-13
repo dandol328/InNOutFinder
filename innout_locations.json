@@ -1,0 +1,212 @@
+[
+  {
+    "latitude": 33.8121,
+    "longitude": -117.919,
+    "city": "Anaheim",
+    "state": "CA"
+  },
+  {
+    "latitude": 33.9425,
+    "longitude": -118.4081,
+    "city": "Baldwin Park",
+    "state": "CA"
+  },
+  {
+    "latitude": 34.0522,
+    "longitude": -118.2437,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  {
+    "latitude": 33.7701,
+    "longitude": -118.1937,
+    "city": "Long Beach",
+    "state": "CA"
+  },
+  {
+    "latitude": 32.7157,
+    "longitude": -117.1611,
+    "city": "San Diego",
+    "state": "CA"
+  },
+  {
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "city": "San Francisco",
+    "state": "CA"
+  },
+  {
+    "latitude": 37.3382,
+    "longitude": -121.8863,
+    "city": "San Jose",
+    "state": "CA"
+  },
+  {
+    "latitude": 33.6846,
+    "longitude": -117.8265,
+    "city": "Irvine",
+    "state": "CA"
+  },
+  {
+    "latitude": 34.4208,
+    "longitude": -119.6982,
+    "city": "Ventura",
+    "state": "CA"
+  },
+  {
+    "latitude": 36.7378,
+    "longitude": -119.7871,
+    "city": "Fresno",
+    "state": "CA"
+  },
+  {
+    "latitude": 38.5816,
+    "longitude": -121.4944,
+    "city": "Sacramento",
+    "state": "CA"
+  },
+  {
+    "latitude": 34.1478,
+    "longitude": -118.1445,
+    "city": "Pasadena",
+    "state": "CA"
+  },
+  {
+    "latitude": 34.1975,
+    "longitude": -119.1771,
+    "city": "Oxnard",
+    "state": "CA"
+  },
+  {
+    "latitude": 33.1959,
+    "longitude": -117.3795,
+    "city": "Oceanside",
+    "state": "CA"
+  },
+  {
+    "latitude": 34.2001,
+    "longitude": -119.037,
+    "city": "Camarillo",
+    "state": "CA"
+  },
+  {
+    "latitude": 36.1699,
+    "longitude": -115.1398,
+    "city": "Las Vegas",
+    "state": "NV"
+  },
+  {
+    "latitude": 39.5296,
+    "longitude": -119.8138,
+    "city": "Reno",
+    "state": "NV"
+  },
+  {
+    "latitude": 36.084,
+    "longitude": -115.0934,
+    "city": "Henderson",
+    "state": "NV"
+  },
+  {
+    "latitude": 33.4484,
+    "longitude": -112.074,
+    "city": "Phoenix",
+    "state": "AZ"
+  },
+  {
+    "latitude": 33.4255,
+    "longitude": -111.94,
+    "city": "Tempe",
+    "state": "AZ"
+  },
+  {
+    "latitude": 33.3062,
+    "longitude": -111.8413,
+    "city": "Gilbert",
+    "state": "AZ"
+  },
+  {
+    "latitude": 33.4152,
+    "longitude": -111.8315,
+    "city": "Mesa",
+    "state": "AZ"
+  },
+  {
+    "latitude": 33.5387,
+    "longitude": -112.186,
+    "city": "Glendale",
+    "state": "AZ"
+  },
+  {
+    "latitude": 32.2217,
+    "longitude": -110.9265,
+    "city": "Tucson",
+    "state": "AZ"
+  },
+  {
+    "latitude": 40.7608,
+    "longitude": -111.891,
+    "city": "Salt Lake City",
+    "state": "UT"
+  },
+  {
+    "latitude": 40.2338,
+    "longitude": -111.6585,
+    "city": "Provo",
+    "state": "UT"
+  },
+  {
+    "latitude": 40.35,
+    "longitude": -111.731,
+    "city": "Orem",
+    "state": "UT"
+  },
+  {
+    "latitude": 32.7767,
+    "longitude": -96.797,
+    "city": "Dallas",
+    "state": "TX"
+  },
+  {
+    "latitude": 29.7604,
+    "longitude": -95.3698,
+    "city": "Houston",
+    "state": "TX"
+  },
+  {
+    "latitude": 29.4241,
+    "longitude": -98.4936,
+    "city": "San Antonio",
+    "state": "TX"
+  },
+  {
+    "latitude": 30.2672,
+    "longitude": -97.7431,
+    "city": "Austin",
+    "state": "TX"
+  },
+  {
+    "latitude": 45.5152,
+    "longitude": -122.6784,
+    "city": "Portland",
+    "state": "OR"
+  },
+  {
+    "latitude": 44.0521,
+    "longitude": -123.0868,
+    "city": "Eugene",
+    "state": "OR"
+  },
+  {
+    "latitude": 39.7392,
+    "longitude": -104.9903,
+    "city": "Denver",
+    "state": "CO"
+  },
+  {
+    "latitude": 38.8339,
+    "longitude": -104.8214,
+    "city": "Colorado Springs",
+    "state": "CO"
+  }
+]
