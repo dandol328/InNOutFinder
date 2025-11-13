@@ -28,10 +28,10 @@ def api_locations():
             'count': count,
             'locations': locations
         })
-    except Exception as e:
+    except Exception:
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to retrieve locations'
         }), 500
 
 
@@ -52,10 +52,10 @@ def api_stats():
             'total': len(locations),
             'by_state': states
         })
-    except Exception as e:
+    except Exception:
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to retrieve statistics'
         }), 500
 
 
@@ -69,4 +69,7 @@ if __name__ == '__main__':
     
     print("Starting In-N-Out Finder web interface...")
     print("Open http://localhost:5000 in your browser")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Set debug=False for production use
+    # For development, debug can be enabled via environment variable
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)
